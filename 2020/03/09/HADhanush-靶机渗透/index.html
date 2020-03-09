@@ -37,13 +37,15 @@
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/6.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/14.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/7.png">
+<meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/15.png">
+<meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/16.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/8.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/9.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/10.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/11.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/12.png">
 <meta property="article:published_time" content="2020-03-09T09:33:58.000Z">
-<meta property="article:modified_time" content="2020-03-09T09:37:10.065Z">
+<meta property="article:modified_time" content="2020-03-09T23:47:02.629Z">
 <meta property="article:author" content="warm glow">
 <meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="vulnhub">
@@ -226,10 +228,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-09 17:33:58 / 修改时间：17:37:10" itemprop="dateCreated datePublished" datetime="2020-03-09T17:33:58+08:00">2020-03-09</time>
+              <time title="创建时间：2020-03-09 17:33:58" itemprop="dateCreated datePublished" datetime="2020-03-09T17:33:58+08:00">2020-03-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-10 07:47:02" itemprop="dateModified" datetime="2020-03-10T07:47:02+08:00">2020-03-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -272,6 +280,11 @@
 <p>发现dhanush用户下有一个空文件，文件名是<code>sudo_as_admin_successful</code>说明了这个用户有可能可以直接sudo成root，那我们就可以留意一下有没有哪里记录着这个用户的密码。sarang用户有<code>.ssh</code>的文件夹，说明这个用户可以使用私钥无密码登录SSH。</p>
 <p>然后我们使用<code>sudo -l</code>看看pinak用户有什么权限。<br><img src="7.png" alt="7"></p>
 <p>可以看到pinak用户可以无需密码以sarang用户的身份使用cp命令，那么后面的渗透思路就确定了，因为sarang用户可以公私钥登录，而且pinak用户可以用sarang的权限使用cp命令。所以我们生成新的rsa公私钥，然后将新的公钥移动到sarang用户的<code>.ssh</code>文件夹下覆盖掉原有的公钥，我们就可以使用新生成的私钥登录sarang账户了。</p>
+<p>这里简单科普一下SSH的两种登录方式：</p>
+<ol>
+<li>密码登录：<br><img src="15.png" alt="15"></li>
+<li>基于密钥登录：<br><img src="16.png" alt="16"></li>
+</ol>
 <p>首先使用命令<code>ssh-keygen</code>生成新的rsa公私钥，密码设为123456<br><img src="8.png" alt="8"></p>
 <p>然后进入<code>.ssh</code>目录，将新生成的公钥从隐藏目录移到<code>/home/pinak</code>目录下，因为sarang没有权限进入pinak的<code>.ssh</code>文件夹，再使用命令<code>sudo -u sarang /bin/cp id_rsa.pub /home/sarang/.ssh/authorized_keys</code>将新生成的公钥覆盖掉sarang用户原本的authorized_keys文件。成功后，用私钥连接sarang账户<code>ssh sarang@192.168.183.139 -p 65345 -i id_rsa</code><br><img src="9.png" alt="9"></p>
 <p>成功登录，使用<code>sudo -l</code>查看权限<br><img src="10.png" alt="10"></p>
