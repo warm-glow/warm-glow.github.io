@@ -244,9 +244,9 @@
       
         <tags>
             
-            <tag> xss </tag>
-            
             <tag> pentestlab </tag>
+            
+            <tag> xss </tag>
             
         </tags>
       
@@ -296,9 +296,9 @@
       
         <tags>
             
-            <tag> pentestlab </tag>
-            
             <tag> sql注入 </tag>
+            
+            <tag> pentestlab </tag>
             
         </tags>
       

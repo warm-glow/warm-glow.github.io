@@ -244,9 +244,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="xss" scheme="https://warm-glow.fun/tags/xss/"/>
-    
       <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
+    
+      <category term="xss" scheme="https://warm-glow.fun/tags/xss/"/>
     
   </entry>
   
@@ -292,9 +292,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
-    
       <category term="sql注入" scheme="https://warm-glow.fun/tags/sql%E6%B3%A8%E5%85%A5/"/>
+    
+      <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
     
   </entry>
   
