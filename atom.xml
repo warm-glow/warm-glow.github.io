@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://warm-glow.fun/"/>
-  <updated>2020-03-10T15:07:49.145Z</updated>
+  <updated>2020-03-11T14:22:00.003Z</updated>
   <id>https://warm-glow.fun/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HA-Armour 靶机渗透</title>
+    <link href="https://warm-glow.fun/2020/03/11/HA-Armour-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/"/>
+    <id>https://warm-glow.fun/2020/03/11/HA-Armour-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/</id>
+    <published>2020-03-11T14:15:08.000Z</published>
+    <updated>2020-03-11T14:22:00.003Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="靶机信息"><a href="#靶机信息" class="headerlink" title="- 靶机信息"></a>- 靶机信息</h2><p>克劳从“复仇者联盟”超级秘密基地偷走了一些盔甲。猎鹰检查了清单，以下是丢失的装甲：</p><ul><li>绿巨人装甲</li><li>蜘蛛侠装甲</li><li>蚁人装甲</li><li>黑豹装甲</li><li>钢铁侠装甲</li></ul><p>克劳隐藏了这些装甲，现在看你的了。你可以使用渗透技能来找到全部装甲吗？ –史蒂夫·罗杰斯（Steve Rogers）上尉<br>       PS 克劳有将密码分为三部分并保存在不同位置的习惯。因此，如果你有一些发现，请结合起来继续前进。<br>       下载地址：<span class="exturl" data-url="aHR0cHM6Ly93d3cudnVsbmh1Yi5jb20vZW50cnkvaGEtYXJtb3VyLDM3MC8=" title="https://www.vulnhub.com/entry/ha-armour,370/">https://www.vulnhub.com/entry/ha-armour,370/<i class="fa fa-external-link"></i></span></p><a id="more"></a><h2 id="渗透流程"><a href="#渗透流程" class="headerlink" title="- 渗透流程"></a>- 渗透流程</h2><p>首先惯例nmap扫描<code>nmap -sP 192.168.183.1/24</code><br><img src="1.png" alt="1"></p><p>然后扫描端口<code>nmap -sV -p- --open 192.168.183.142</code><br><img src="2.png" alt="2"></p><p>目前什么信息都没有，所以首先去看看80端口的web服务，访问网站，发现全部都是图片，查看下源码。发现了线索<br><img src="3.png" alt="3"></p><p>提示了69这个数字和一个<code>note.txt</code>，猜测这个69可能是一个端口，百度一下。69端口一般是TFTP服务。TFTP是Cisco公司开发的一个简单文件传输协议，类似于FTP。那么我们就去访问一下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tftp 192.168.183.142</span><br><span class="line">get notes.txt</span><br></pre></td></tr></table></figure><p>notes.txt被下载到当前目录，打开。<br><img src="4.png" alt="4"></p><p>获得了蜘蛛侠装甲和一个线索2：<code>maybeevena</code>。然后试试一下dirb目录扫描，只扫除了<code>css</code>和<code>image</code>两个目录，没什么信息。再使用御剑扫一下有没有什么文件。<br><img src="5.png" alt="5"></p><p>发现有一个<code>file.php</code>。访问一下，发现页面空白，页面源码也是空白，但是这个文件名感觉像是有用的。所以猜测可能是文件包含，试一下，果然是文件包含。<br><img src="6.png" alt="6"></p><p>8080端口是apache tomcat，我们需要用户名和密码登录manager后台。所以我们就去看看<code>/etc/apache2/.htpasswd</code>文件。<code>.htpasswd</code>文件中账号以<code>用户名/加密密码</code>形式存在。<br><img src="7.png" alt="7"></p><p>没有账号信息，但是拿到了蚁人装甲和线索3：StarBucks。根据靶机信息的提示，我们还差线索1就可以组合成密码了。想想其他没尝试的还有8080，8009，SSH端口。8080就是正常的tomcat，8009无法访问，那我们就只能尝试一下SSH了，而且照这个情况来看，线索1应该是最好拿到的，所以我们尝试SSH，果然，不用登陆就可以获得线索。<br><img src="8.png" alt="8"></p><p>获得绿巨人装甲和线索1：TheOlympics。将三个线索组合起来，获得密码<code>TheOlympicsmaybeevenaStarBucks</code>。这个可能就是tomcat的登录密码。我们现在需要用户名，所以使用<code>cewl -w 1.txt http://192.168.183.142</code>爬取一下80端口那个页面的字符串做成字典。<br><img src="9.png" alt="9"></p><p>发现确实有可能存在用户名。我们可以尝试一下爆破tomcat的manager后台。打开metasploit，<code>search tomcat</code>，发现有用来进行manager登录的模块。<br><img src="10.png" alt="10"></p><p>使用use命令登录，然后使用<code>show options</code>查看我们需要填充什么信息。<br><img src="11.png" alt="11"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set PASSWORD TheOlympicsmaybeevenaStarBucks &#x2F;&#x2F;设置密码</span><br><span class="line">set RHOST 192.168.183.142 &#x2F;&#x2F;设置靶机IP</span><br><span class="line">set USER_FILE &#x2F;home&#x2F;kali&#x2F;Desktop&#x2F;1.txt &#x2F;&#x2F;设置用户名字典</span><br><span class="line">run &#x2F;&#x2F;都设置好后就可以攻击了</span><br></pre></td></tr></table></figure><p>如果想快一点的话，可以把password，单独存入一个txt文件，然后把pass_file修改一下。<br><img src="12.png" alt="12"></p><p>爆破成功，得到用户名。用户名：<code>armour</code>。现在有了用户名和密码，我们就可以使用tomcat的第二个模块<code>exploit/multi/http/tomcat_mgr_upload</code>。这个模块在我们可以登录tomcat manager时可以执行payload帮我们获得shell。<br><img src="13.png" alt="13"></p><p>和刚才一样，设置用户名，密码，目标机IP，还有不要忘记确认端口号是否正确，设置好后run就可以了。<br><img src="14.png" alt="14"></p><p>现在虽然拿到了shell，但是这个shell的权限很低，甚至不是用户，所以我们要先提权成普通用户再想办法提权成root。所以首先去home目录看看有哪些用户可以用来提权。<br><img src="15.png" alt="15"><br><img src="16.png" alt="16"></p><p>这两个用户的目录里面都没有什么关于密码的信息，所以我们只能想其他办法提权。参考了一下大佬的思路，我们可以把apache的用户改成这两个用户，然后通过webshell弹shell获得用户的shell。百度一下，apache的用户信息记录在apache2.conf的配置文件里面。<br><img src="17.png" alt="17"></p><p>我们有权限修改，使用meterpreter的edit命令修改<code>edit apache2.conf</code><br><img src="18.png" alt="18"></p><p>把原本的注释，加上新的user和group，我们这里选择armour用户，因为armour用户有个文件名<code>sudo_as_admin_successful</code>的空文件，所以可能可以直接提权成root。把apache用户修改好后。我们上传一个webshell到网站的根目录。我这里选择的是kali自带的<code>/usr/share/webshells/php/</code>目录下的<code>php-reverse-shell.php</code>，将它复制到桌面，然后使用meterpreter的upload命令把webshell上传到网站根目录下<br><img src="19.png" alt="19"></p><p>对了，上传之前记得把shell的内容修改一下，把攻击机的IP改成你自己的攻击机IP，端口也可以修改。<br><img src="20.png" alt="20"></p><p>成功上传后，我们最后确保一下shell的权限，最好还是使用chmod把它的权限改成777，以确保shell可以被执行。我第一次上传时，上传的shell就是所有用户都没有x权限。因为meterpreter没有chmod命令，所以我们先使用<code>shell</code>，变成普通shell模式，再使用chmod命令。<br><img src="21.png" alt="21"></p><p>准备做好了，我们重启一下靶机，让apache变更下用户。然后在攻击机监听webshell填的端口，然后浏览器访问我们上传的webshell文件。<br><img src="22.png" alt="22"></p><p>前面的测试表明我上传的webshell成功执行了，但是连接被拒绝了，可能这个用户不能弹shell，所以我们换另一个用户aarti。<br><img src="23.png" alt="23"></p><p>成功获得aarti用户的shell，使用<code>sudo -l</code>命令看看有什么权限。<br><img src="24.png" alt="24"></p><p>aarti可以用root的身份执行perl，那没什么好说的了，直接提权。</p><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo perl -e <span class="string">'exec "/bin/bash";'</span></span><br></pre></td></tr></table></figure><p>拿到root权限后，去root目录找剩下的装甲<br><img src="25.png" alt="25"></p><p>我们找到了钢铁侠的装甲，但是遗失的装甲有5个，还差黑豹装甲没有找到。想想第二个装甲是在69端口拿到的，所以我们看看开启的端口。<br><img src="26.png" alt="26"></p><p>发现有一个8081端口，只能本地访问。使用<code>curl 127.0.0.1:8081</code>访问一下，但是靶机没有安装curl命令。所以我们使用meterpreter的portfwd命令把靶机的8081端口发送到我们的攻击机。<code>portfwd add -l 8081 -p 8081 -r 127.0.0.1</code>，然后在kali里面访问。<br><img src="27.png" alt="27"></p><p>找到最后一个装甲，本次渗透任务圆满完成。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;靶机信息&quot;&gt;&lt;a href=&quot;#靶机信息&quot; class=&quot;headerlink&quot; title=&quot;- 靶机信息&quot;&gt;&lt;/a&gt;- 靶机信息&lt;/h2&gt;&lt;p&gt;克劳从“复仇者联盟”超级秘密基地偷走了一些盔甲。猎鹰检查了清单，以下是丢失的装甲：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;绿巨人装甲&lt;/li&gt;
+&lt;li&gt;蜘蛛侠装甲&lt;/li&gt;
+&lt;li&gt;蚁人装甲&lt;/li&gt;
+&lt;li&gt;黑豹装甲&lt;/li&gt;
+&lt;li&gt;钢铁侠装甲&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;克劳隐藏了这些装甲，现在看你的了。你可以使用渗透技能来找到全部装甲吗？ –史蒂夫·罗杰斯（Steve Rogers）上尉&lt;br&gt;       PS 克劳有将密码分为三部分并保存在不同位置的习惯。因此，如果你有一些发现，请结合起来继续前进。&lt;br&gt;       下载地址：&lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cHM6Ly93d3cudnVsbmh1Yi5jb20vZW50cnkvaGEtYXJtb3VyLDM3MC8=&quot; title=&quot;https://www.vulnhub.com/entry/ha-armour,370/&quot;&gt;https://www.vulnhub.com/entry/ha-armour,370/&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
+    
+    
+      <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
+    
+      <category term="HA系列" scheme="https://warm-glow.fun/tags/HA%E7%B3%BB%E5%88%97/"/>
+    
+  </entry>
   
   <entry>
     <title>View2aKill 1靶机渗透测试</title>
@@ -42,9 +77,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
-    
       <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
     
       <category term="View2aKill" scheme="https://warm-glow.fun/tags/View2aKill/"/>
     
@@ -55,7 +90,7 @@
     <link href="https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/"/>
     <id>https://warm-glow.fun/2020/03/09/HADhanush-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/</id>
     <published>2020-03-09T09:33:58.000Z</published>
-    <updated>2020-03-09T23:47:02.629Z</updated>
+    <updated>2020-03-11T14:23:32.860Z</updated>
     
     <content type="html"><![CDATA[<h2 id="靶机信息"><a href="#靶机信息" class="headerlink" title="- 靶机信息"></a>- 靶机信息</h2><p>说明：Dhanush曾经是巅峰的的武器技术。它把战争重新定义到了一个新的高度，并在历史上的所有神话记载中都提到过。选择你的Dhanush，拉伸弓弦并射击以获取root！枚举是关键！！！！</p><p>下载：<span class="exturl" data-url="aHR0cHM6Ly93d3cudnVsbmh1Yi5jb20vZW50cnkvaGEtZGhhbnVzaCwzOTYv" title="https://www.vulnhub.com/entry/ha-dhanush,396/">https://www.vulnhub.com/entry/ha-dhanush,396/<i class="fa fa-external-link"></i></span></p><a id="more"></a><h2 id="渗透流程"><a href="#渗透流程" class="headerlink" title="- 渗透流程"></a>- 渗透流程</h2><p>首先是基本流程，nmap扫一扫，看看靶机ip。<code>nmap -sP 192.168.183.1/24</code><br><img src="1.png" alt="1"></p><p>确认靶机ip为192.168.183.139，接着就是扫端口了。<code>nmap -sV -p- --open 192.168.183.139</code>。<br><img src="2.png" alt="2"></p><p>发现开启了80端口和65345端口，80是web服务，65345是ssh服务。那就去web的网站看一看。发现网站就是Dhanush的介绍。然后想到靶机说的枚举是关键。看来是要爆破ssh了。首先收集字典。使用<code>cewl 192.168.183.139 -w 1.txt</code>将网站上面的所有字符串收集起来作为爆破的字典。<br><img src="3.png" alt="3"></p><p>里面有些乱码字符，可以不用管。有了字典就可以开始爆破了，使用hydra工具爆破<code>hydra -L 1.txt -P 1.txt -e ns -t 60 -s 65345 192.168.183.139 ssh</code>，-e后面的ns分别表示密码可以为空和密码和用户名可以相同，-t 设置线程数。<br><img src="4.png" alt="4"></p><p>爆破成功得到账号：<code>pinak</code>，密码：<code>Gandiv</code></p><p>连接SSH，<code>ssh pinak@192.168.183.139 -p 65345</code><br><img src="5.png" alt="5"></p><p>进去之后就可以四处瞅瞅了，发现home文件夹下面有三个用户dhanush、pinak、sarang，看看他们的目录。<br><img src="13.png" alt="13"><br><img src="6.png" alt="6"><br><img src="14.png" alt="14"></p><p>发现dhanush用户下有一个空文件，文件名是<code>sudo_as_admin_successful</code>说明了这个用户有可能可以直接sudo成root，那我们就可以留意一下有没有哪里记录着这个用户的密码。sarang用户有<code>.ssh</code>的文件夹，说明这个用户可以使用私钥无密码登录SSH。</p><p>然后我们使用<code>sudo -l</code>看看pinak用户有什么权限。<br><img src="7.png" alt="7"></p><p>可以看到pinak用户可以无需密码以sarang用户的身份使用cp命令，那么后面的渗透思路就确定了，因为sarang用户可以公私钥登录，而且pinak用户可以用sarang的权限使用cp命令。所以我们生成新的rsa公私钥，然后将新的公钥移动到sarang用户的<code>.ssh</code>文件夹下覆盖掉原有的公钥，我们就可以使用新生成的私钥登录sarang账户了。</p><p>这里简单科普一下SSH的两种登录方式：</p><ol><li>密码登录：<br><img src="15.png" alt="15"></li><li>基于密钥登录：<br><img src="16.png" alt="16"></li></ol><p>首先使用命令<code>ssh-keygen</code>生成新的rsa公私钥，密码设为123456<br><img src="8.png" alt="8"></p><p>然后进入<code>.ssh</code>目录，将新生成的公钥从隐藏目录移到<code>/home/pinak</code>目录下，因为sarang没有权限进入pinak的<code>.ssh</code>文件夹，再使用命令<code>sudo -u sarang /bin/cp id_rsa.pub /home/sarang/.ssh/authorized_keys</code>将新生成的公钥覆盖掉sarang用户原本的authorized_keys文件。成功后，用私钥连接sarang账户<code>ssh sarang@192.168.183.139 -p 65345 -i id_rsa</code><br><img src="9.png" alt="9"></p><p>成功登录，使用<code>sudo -l</code>查看权限<br><img src="10.png" alt="10"></p><p>sarang用户可以无需密码以root身份执行zip命令，又因为使用zip命令可以执行系统命令，所以我们可以直接提权。先创建一个1.txt文件，然后<code>sudo /usr/bin/zip 1.zip 1.txt -T --unzip-command=&quot;sh -c /bin/bash&quot;</code>。这个命令的意思是将1.txt压缩，然后解压的时候弹一个shell，因为是以root的身份执行的，所以弹出的shell就是root权限。<br><img src="11.png" alt="11"></p><p>可以看到，我们现在已经是root权限了，然后去root文件夹下拿flag<br><img src="12.png" alt="12"></p><p>目标达成后，我又想起了那个dhanush用户，去网上找了找，发现大家都是zip本地提权，没有人用dhanush提权成root的，可能这只是用来迷惑我们的吧。</p>]]></content>
     
@@ -70,11 +105,11 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
-    
       <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="HADhanush" scheme="https://warm-glow.fun/tags/HADhanush/"/>
+      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
+    
+      <category term="HA系列" scheme="https://warm-glow.fun/tags/HA%E7%B3%BB%E5%88%97/"/>
     
   </entry>
   
@@ -97,9 +132,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
-    
       <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
     
       <category term="NinevehV" scheme="https://warm-glow.fun/tags/NinevehV/"/>
     
@@ -124,9 +159,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
-    
       <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
     
       <category term="Os-hackNos" scheme="https://warm-glow.fun/tags/Os-hackNos/"/>
     
@@ -151,11 +186,11 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="Me and My Girlfriend" scheme="https://warm-glow.fun/tags/Me-and-My-Girlfriend/"/>
+      <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
       <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
     
-      <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="Me and My Girlfriend" scheme="https://warm-glow.fun/tags/Me-and-My-Girlfriend/"/>
     
   </entry>
   
@@ -178,9 +213,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
-    
       <category term="渗透测试" scheme="https://warm-glow.fun/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="vulnhub" scheme="https://warm-glow.fun/tags/vulnhub/"/>
     
       <category term="solidstate" scheme="https://warm-glow.fun/tags/solidstate/"/>
     
@@ -278,9 +313,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
-    
       <category term="xss" scheme="https://warm-glow.fun/tags/xss/"/>
+    
+      <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
     
   </entry>
   
@@ -326,9 +361,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="sql注入" scheme="https://warm-glow.fun/tags/sql%E6%B3%A8%E5%85%A5/"/>
-    
       <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
+    
+      <category term="sql注入" scheme="https://warm-glow.fun/tags/sql%E6%B3%A8%E5%85%A5/"/>
     
   </entry>
   
