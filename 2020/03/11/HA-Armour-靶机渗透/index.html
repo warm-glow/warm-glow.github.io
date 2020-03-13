@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <meta name="baidu-site-verification" content="j3N00BX0Mg">
+  <meta name="baidu-site-verification" content="0VfsPuBgSE">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -57,10 +57,10 @@
 <meta property="og:image" content="https://warm-glow.fun/2020/03/11/HA-Armour-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/26.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/11/HA-Armour-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/27.png">
 <meta property="article:published_time" content="2020-03-11T14:15:08.000Z">
-<meta property="article:modified_time" content="2020-03-11T14:22:00.003Z">
+<meta property="article:modified_time" content="2020-03-12T01:10:51.059Z">
 <meta property="article:author" content="warm glow">
-<meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="HA系列">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://warm-glow.fun/2020/03/11/HA-Armour-%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/1.png">
@@ -164,7 +164,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">14</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">15</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -240,10 +240,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-11 22:15:08 / 修改时间：22:22:00" itemprop="dateCreated datePublished" datetime="2020-03-11T22:15:08+08:00">2020-03-11</time>
+              <time title="创建时间：2020-03-11 22:15:08" itemprop="dateCreated datePublished" datetime="2020-03-11T22:15:08+08:00">2020-03-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-12 09:10:51" itemprop="dateModified" datetime="2020-03-12T09:10:51+08:00">2020-03-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -309,7 +315,7 @@
 <p>对了，上传之前记得把shell的内容修改一下，把攻击机的IP改成你自己的攻击机IP，端口也可以修改。<br><img src="20.png" alt="20"></p>
 <p>成功上传后，我们最后确保一下shell的权限，最好还是使用chmod把它的权限改成777，以确保shell可以被执行。我第一次上传时，上传的shell就是所有用户都没有x权限。因为meterpreter没有chmod命令，所以我们先使用<code>shell</code>，变成普通shell模式，再使用chmod命令。<br><img src="21.png" alt="21"></p>
 <p>准备做好了，我们重启一下靶机，让apache变更下用户。然后在攻击机监听webshell填的端口，然后浏览器访问我们上传的webshell文件。<br><img src="22.png" alt="22"></p>
-<p>前面的测试表明我上传的webshell成功执行了，但是连接被拒绝了，可能这个用户不能弹shell，所以我们换另一个用户aarti。<br><img src="23.png" alt="23"></p>
+<p>前面的测试表明我上传的webshell成功执行了，但是连接被拒绝了，可能这个用户不能弹shell，所以我们换另一个用户aarti，再次修改apache2.conf文件，然后重启靶机。再监听。<br><img src="23.png" alt="23"></p>
 <p>成功获得aarti用户的shell，使用<code>sudo -l</code>命令看看有什么权限。<br><img src="24.png" alt="24"></p>
 <p>aarti可以用root的身份执行perl，那没什么好说的了，直接提权。</p>
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo perl -e <span class="string">'exec "/bin/bash";'</span></span><br></pre></td></tr></table></figure>
@@ -345,8 +351,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 渗透测试</a>
               <a href="/tags/vulnhub/" rel="tag"><i class="fa fa-tag"></i> vulnhub</a>
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 渗透测试</a>
               <a href="/tags/HA%E7%B3%BB%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> HA系列</a>
           </div>
 
@@ -359,7 +365,10 @@
     <a href="/2020/03/10/View2aKill-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="prev" title="View2aKill 1靶机渗透测试">
       <i class="fa fa-chevron-left"></i> View2aKill 1靶机渗透测试
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/13/Moonraker-1%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" rel="next" title="Moonraker-1靶机渗透">
+      Moonraker-1靶机渗透 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -435,7 +444,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
