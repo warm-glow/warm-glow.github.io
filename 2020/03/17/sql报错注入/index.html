@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://warm-glow.fun/2020/03/17/sql%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/2.png">
 <meta property="og:image" content="https://warm-glow.fun/2020/03/17/sql%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/3.png">
 <meta property="article:published_time" content="2020-03-17T13:22:48.000Z">
-<meta property="article:modified_time" content="2020-03-17T14:06:53.756Z">
+<meta property="article:modified_time" content="2020-03-17T14:12:47.236Z">
 <meta property="article:author" content="warm glow">
 <meta property="article:tag" content="sql注入">
 <meta name="twitter:card" content="summary">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-17 21:22:48 / 修改时间：22:06:53" itemprop="dateCreated datePublished" datetime="2020-03-17T21:22:48+08:00">2020-03-17</time>
+              <time title="创建时间：2020-03-17 21:22:48 / 修改时间：22:12:47" itemprop="dateCreated datePublished" datetime="2020-03-17T21:22:48+08:00">2020-03-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,12 +268,12 @@
 </tbody></table>
 <p>通过这两个函数可以完成报错注入</p>
 <h3 id="extractvalue函数"><a href="#extractvalue函数" class="headerlink" title="- extractvalue函数"></a>- extractvalue函数</h3><p><a href="https://dev.mysql.com/doc/refman/5.7/en/xml-functions.html#function_extractvalue" target="_blank" rel="noopener"><code>ExtractValue(xml_frag, xpath_expr)</code></a></p>
-<p><a href="https://dev.mysql.com/doc/refman/5.7/en/xml-functions.html#function_extractvalue" target="_blank" rel="noopener"><code>ExtractValue()</code></a>接受两个字符串参数，一个XML标记片段 <em>xml_frag</em>和一个XPath表达式 <em>xpath_expr</em>（也称为 定位器）; 它返回<code>CDATA</code>第一个文本节点的text（），该节点是XPath表达式匹配的元素的子元素。</p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/xml-functions.html#function_extractvalue" target="_blank" rel="noopener"><code>ExtractValue()</code></a>接受两个字符串参数，一个XML标记片段 <code>xml_frag</code>和一个XPath表达式 <code>xpath_expr</code>（也称为 定位器）; 它返回<code>CDATA</code>第一个文本节点的text()，该节点是XPath表达式匹配的元素的子元素。</p>
 <p>第一个参数可以传入目标xml文档，第二个参数是用Xpath路径法表示的查找路径</p>
-<p>例如：<code>SELECT ExtractValue(&#39;&#39;, &#39;/a/b&#39;);</code> 就是寻找前一段xml文档内容中的a节点下的b节点，这里如果Xpath格式语法书写错误的话，就会报错。这里就是利用这个特性来获得我们想要知道的内容。<br><img src="1.png" alt="1"></p>
+<p>例如：<code>SELECT ExtractValue(&#39;&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;&#39;, &#39;/a/b&#39;);</code> 就是寻找前一段xml文档内容中的a节点下的b节点，这里如果Xpath格式语法书写错误的话，就会报错。这里就是利用这个特性来获得我们想要知道的内容。<br><img src="1.png" alt="1"></p>
 <p>（这里我们是为了学习报错注入，所以不需要太详细的知道该函数具体原理）</p>
 <p>利用concat函数将想要获得的数据库内容拼接到第二个参数中，报错时作为内容输出。<br><img src="2.png" alt="2"></p>
-<h3 id="二、updatexml函数"><a href="#二、updatexml函数" class="headerlink" title="二、updatexml函数"></a>二、updatexml函数</h3><p><a href="https://dev.mysql.com/doc/refman/5.7/en/xml-functions.html#function_updatexml" target="_blank" rel="noopener"><code>UpdateXML(xml_target, xpath_expr, new_xml)</code></a></p>
+<h3 id="updatexml函数"><a href="#updatexml函数" class="headerlink" title="- updatexml函数"></a>- updatexml函数</h3><p><a href="https://dev.mysql.com/doc/refman/5.7/en/xml-functions.html#function_updatexml" target="_blank" rel="noopener"><code>UpdateXML(xml_target, xpath_expr, new_xml)</code></a></p>
 <p><code>xml_target</code>：需要操作的xml片段</p>
 <p><code>xpath_expr</code>： 需要更新的xml路径(Xpath格式)</p>
 <p><code>new_xml</code>： 更新后的内容</p>
@@ -381,7 +381,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#报错注入：extractvalue、updatexml报错原理"><span class="nav-text">- 报错注入：extractvalue、updatexml报错原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extractvalue函数"><span class="nav-text">- extractvalue函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、updatexml函数"><span class="nav-text">二、updatexml函数</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#报错注入：extractvalue、updatexml报错原理"><span class="nav-text">- 报错注入：extractvalue、updatexml报错原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#extractvalue函数"><span class="nav-text">- extractvalue函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#updatexml函数"><span class="nav-text">- updatexml函数</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
