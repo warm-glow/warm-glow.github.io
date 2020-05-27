@@ -445,9 +445,9 @@
       <category term="write up" scheme="https://warm-glow.fun/categories/write-up/"/>
     
     
-      <category term="xss" scheme="https://warm-glow.fun/tags/xss/"/>
-    
       <category term="pentestlab" scheme="https://warm-glow.fun/tags/pentestlab/"/>
+    
+      <category term="xss" scheme="https://warm-glow.fun/tags/xss/"/>
     
   </entry>
   
